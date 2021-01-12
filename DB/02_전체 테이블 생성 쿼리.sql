@@ -1,0 +1,478 @@
+-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_STATE_FOR_IS
+(
+    STATE_FOR_IS    CHAR(1)    NOT NULL, 
+    CONSTRAINT CT_TB_STATE_FOR_IS_PK PRIMARY KEY (STATE_FOR_IS)
+)
+/
+
+COMMENT ON COLUMN CT_TB_STATE_FOR_IS.STATE_FOR_IS IS 'is_참조값'
+/
+
+ALTER TABLE CT_TB_STATE_FOR_IS
+    ADD CONSTRAINT UC_STATE_FOR_IS UNIQUE (STATE_FOR_IS)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_USER_GRADE
+(
+    user_grade    NUMBER          NOT NULL, 
+    grade_name    VARCHAR2(30)    NOT NULL, 
+    CONSTRAINT CT_TB_USER_GRADE_PK PRIMARY KEY (user_grade)
+)
+/
+
+CREATE SEQUENCE CT_TB_USER_GRADE_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER CT_TB_USER_GRADE_AI_TRG
+BEFORE INSERT ON CT_TB_USER_GRADE 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT CT_TB_USER_GRADE_SEQ.NEXTVAL
+    INTO :NEW.user_grade
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER CT_TB_USER_GRADE_AI_TRG;
+/
+
+--DROP SEQUENCE CT_TB_USER_GRADE_SEQ;
+/
+
+COMMENT ON TABLE CT_TB_USER_GRADE IS '회원등급테이블'
+/
+
+COMMENT ON COLUMN CT_TB_USER_GRADE.user_grade IS '회원등급'
+/
+
+COMMENT ON COLUMN CT_TB_USER_GRADE.grade_name IS '회원등급이름'
+/
+
+ALTER TABLE CT_TB_USER_GRADE
+    ADD CONSTRAINT UC_grade_name UNIQUE (grade_name)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_USER
+(
+    user_no          NUMBER           NOT NULL, 
+    user_id          VARCHAR2(20)     NOT NULL, 
+    user_pw          VARCHAR2(100)    NOT NULL, 
+    user_nick        VARCHAR2(30)     NOT NULL, 
+    user_gender      CHAR(1)          NOT NULL, 
+    user_birthDay    DATE             NOT NULL, 
+    user_joinDate    DATE             NOT NULL, 
+    user_grade       NUMBER           NOT NULL, 
+    CONSTRAINT CT_TB_USER_PK PRIMARY KEY (user_no)
+)
+/
+
+CREATE SEQUENCE CT_TB_USER_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER CT_TB_USER_AI_TRG
+BEFORE INSERT ON CT_TB_USER 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT CT_TB_USER_SEQ.NEXTVAL
+    INTO :NEW.user_no
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER CT_TB_USER_AI_TRG;
+/
+
+--DROP SEQUENCE CT_TB_USER_SEQ;
+/
+
+COMMENT ON TABLE CT_TB_USER IS '회원테이블'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_no IS '회원번호'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_id IS '회원아이디'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_pw IS '회원비밀번호'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_nick IS '닉네임'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_gender IS '성별'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_birthDay IS '생년월일'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_joinDate IS '가입일'
+/
+
+COMMENT ON COLUMN CT_TB_USER.user_grade IS '회원등급'
+/
+
+ALTER TABLE CT_TB_USER
+    ADD CONSTRAINT FK_CT_TB_USER_user_grade_CT_TB FOREIGN KEY (user_grade)
+        REFERENCES CT_TB_USER_GRADE (user_grade)
+/
+
+ALTER TABLE CT_TB_USER
+    ADD CONSTRAINT UC_user_id UNIQUE (user_id)
+/
+
+ALTER TABLE CT_TB_USER
+    ADD CONSTRAINT UC_user_nick UNIQUE (user_nick)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_BOARDCLASS
+(
+    board_no      NUMBER          NOT NULL, 
+    board_name    VARCHAR2(60)    NOT NULL, 
+    CONSTRAINT CT_TB_BOARDCLASS_PK PRIMARY KEY (board_no)
+)
+/
+
+COMMENT ON TABLE CT_TB_BOARDCLASS IS '게시판 분류테이블'
+/
+
+COMMENT ON COLUMN CT_TB_BOARDCLASS.board_no IS '게시판 분류번호'
+/
+
+COMMENT ON COLUMN CT_TB_BOARDCLASS.board_name IS '게시판 이름'
+/
+
+ALTER TABLE CT_TB_BOARDCLASS
+    ADD CONSTRAINT UC_board_name UNIQUE (board_name)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_BOARD
+(
+    article_no           NUMBER            NOT NULL, 
+    board_no             NUMBER            NOT NULL, 
+    article_title        VARCHAR2(100)     NOT NULL, 
+    article_content      VARCHAR2(4000)    NOT NULL, 
+    user_no              NUMBER            NOT NULL, 
+    club_no              NUMBER            NULL, 
+    create_date          DATE              NOT NULL, 
+    revision_date        DATE              NOT NULL, 
+    is_delete            CHAR(1)           NOT NULL, 
+    is_reply             CHAR(1)           NOT NULL, 
+    origin_article_no    NUMBER            NULL, 
+    CONSTRAINT CT_TB_BOARD_PK PRIMARY KEY (article_no, board_no)
+)
+/
+
+COMMENT ON TABLE CT_TB_BOARD IS '게시판테이블'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.article_no IS '게시글 번호'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.board_no IS '게시판 분류번호'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.article_title IS '제목'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.article_content IS '내용'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.user_no IS '회원번호'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.club_no IS '모임번호'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.create_date IS '작성날짜'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.revision_date IS '수정날짜'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.is_delete IS '삭제여부'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.is_reply IS '답글여부'
+/
+
+COMMENT ON COLUMN CT_TB_BOARD.origin_article_no IS '원래 게시글 번호'
+/
+
+ALTER TABLE CT_TB_BOARD
+    ADD CONSTRAINT FK_CT_TB_BOARD_board_no_CT_TB_ FOREIGN KEY (board_no)
+        REFERENCES CT_TB_BOARDCLASS (board_no)
+/
+
+ALTER TABLE CT_TB_BOARD
+    ADD CONSTRAINT FK_CT_TB_BOARD_user_no_CT_TB_U FOREIGN KEY (user_no)
+        REFERENCES CT_TB_USER (user_no)
+/
+
+ALTER TABLE CT_TB_BOARD
+    ADD CONSTRAINT FK_CT_TB_BOARD_is_delete_CT_TB FOREIGN KEY (is_delete)
+        REFERENCES CT_TB_STATE_FOR_IS (STATE_FOR_IS)
+/
+
+ALTER TABLE CT_TB_BOARD
+    ADD CONSTRAINT FK_CT_TB_BOARD_is_reply_CT_TB_ FOREIGN KEY (is_reply)
+        REFERENCES CT_TB_STATE_FOR_IS (STATE_FOR_IS)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_CLUB
+(
+    club_no        NUMBER          NOT NULL, 
+    club_name      VARCHAR2(60)    NOT NULL, 
+    max_number     NUMBER          NOT NULL, 
+    club_member    VARCHAR2(20)    NOT NULL, 
+    start_date     DATE            NOT NULL, 
+    end_date       DATE            NOT NULL, 
+    is_public      CHAR(1)         NOT NULL, 
+    CONSTRAINT CT_TB_CLUB_PK PRIMARY KEY (club_no)
+)
+/
+
+CREATE SEQUENCE CT_TB_CLUB_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER CT_TB_CLUB_AI_TRG
+BEFORE INSERT ON CT_TB_CLUB 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT CT_TB_CLUB_SEQ.NEXTVAL
+    INTO :NEW.club_no
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER CT_TB_CLUB_AI_TRG;
+/
+
+--DROP SEQUENCE CT_TB_CLUB_SEQ;
+/
+
+COMMENT ON TABLE CT_TB_CLUB IS '모임테이블'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.club_no IS '모임번호'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.club_name IS '모임이름'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.max_number IS '제한인원'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.club_member IS '멤버'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.start_date IS '모임시작일'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.end_date IS '모임종료일'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB.is_public IS '공개여부'
+/
+
+ALTER TABLE CT_TB_CLUB
+    ADD CONSTRAINT FK_CT_TB_CLUB_is_public_CT_TB_ FOREIGN KEY (is_public)
+        REFERENCES CT_TB_STATE_FOR_IS (STATE_FOR_IS)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_MEMBER_GRADE
+(
+    member_grade    NUMBER          NOT NULL, 
+    grade_name      VARCHAR2(30)    NOT NULL, 
+    CONSTRAINT CT_TB_MEMBER_GRADE_PK PRIMARY KEY (member_grade)
+)
+/
+
+CREATE SEQUENCE CT_TB_MEMBER_GRADE_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER CT_TB_MEMBER_GRADE_AI_TRG
+BEFORE INSERT ON CT_TB_MEMBER_GRADE 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT CT_TB_MEMBER_GRADE_SEQ.NEXTVAL
+    INTO :NEW.member_grade
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER CT_TB_MEMBER_GRADE_AI_TRG;
+/
+
+--DROP SEQUENCE CT_TB_MEMBER_GRADE_SEQ;
+/
+
+COMMENT ON TABLE CT_TB_MEMBER_GRADE IS '모임멤버등급테이블'
+/
+
+COMMENT ON COLUMN CT_TB_MEMBER_GRADE.member_grade IS '모임멤버등급'
+/
+
+COMMENT ON COLUMN CT_TB_MEMBER_GRADE.grade_name IS '등급이름'
+/
+
+ALTER TABLE CT_TB_MEMBER_GRADE
+    ADD CONSTRAINT UC_grade_name UNIQUE (grade_name)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_CLUB_MEMBER01
+(
+    user_no         NUMBER    NOT NULL, 
+    club_no         NUMBER    NOT NULL, 
+    member_grade    NUMBER    NOT NULL, 
+    CONSTRAINT CT_TB_CLUB_MEMBER01_PK PRIMARY KEY (user_no, club_no)
+)
+/
+
+COMMENT ON TABLE CT_TB_CLUB_MEMBER01 IS '모임멤버테이블'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_MEMBER01.user_no IS '회원번호'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_MEMBER01.club_no IS '모임번호'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_MEMBER01.member_grade IS '모임멤버등급'
+/
+
+ALTER TABLE CT_TB_CLUB_MEMBER01
+    ADD CONSTRAINT FK_CT_TB_CLUB_MEMBER01_user_no FOREIGN KEY (user_no)
+        REFERENCES CT_TB_USER (user_no)
+/
+
+ALTER TABLE CT_TB_CLUB_MEMBER01
+    ADD CONSTRAINT FK_CT_TB_CLUB_MEMBER01_club_no FOREIGN KEY (club_no)
+        REFERENCES CT_TB_CLUB (club_no)
+/
+
+ALTER TABLE CT_TB_CLUB_MEMBER01
+    ADD CONSTRAINT FK_CT_TB_CLUB_MEMBER01_member_ FOREIGN KEY (member_grade)
+        REFERENCES CT_TB_MEMBER_GRADE (member_grade)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_CLUB_TAG01
+(
+    tag_no      NUMBER          NOT NULL, 
+    club_no     NUMBER          NOT NULL, 
+    tag_name    VARCHAR2(30)    NOT NULL, 
+    CONSTRAINT CT_TB_CLUB_TAG01_PK PRIMARY KEY (tag_no)
+)
+/
+
+COMMENT ON TABLE CT_TB_CLUB_TAG01 IS '태그테이블'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_TAG01.tag_no IS '태그번호'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_TAG01.club_no IS '모임번호'
+/
+
+COMMENT ON COLUMN CT_TB_CLUB_TAG01.tag_name IS '태그명'
+/
+
+ALTER TABLE CT_TB_CLUB_TAG01
+    ADD CONSTRAINT FK_CT_TB_CLUB_TAG01_club_no_CT FOREIGN KEY (club_no)
+        REFERENCES CT_TB_CLUB (club_no)
+/
+
+ALTER TABLE CT_TB_CLUB_TAG01
+    ADD CONSTRAINT UC_tag_name UNIQUE (tag_name)
+/
+
+
+-- CT_TB_STATE_FOR_IS Table Create SQL
+CREATE TABLE CT_TB_COMMENT
+(
+    comment_no           NUMBER     NOT NULL, 
+    board_no             NUMBER     NOT NULL, 
+    article_no           NUMBER     NOT NULL, 
+    is_reply             CHAR(1)    NOT NULL, 
+    origin_comment_no    NUMBER     NULL, 
+    CONSTRAINT CT_TB_COMMENT_PK PRIMARY KEY (comment_no)
+)
+/
+
+CREATE SEQUENCE CT_TB_COMMENT_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER CT_TB_COMMENT_AI_TRG
+BEFORE INSERT ON CT_TB_COMMENT 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT CT_TB_COMMENT_SEQ.NEXTVAL
+    INTO :NEW.comment_no
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER CT_TB_COMMENT_AI_TRG;
+/
+
+--DROP SEQUENCE CT_TB_COMMENT_SEQ;
+/
+
+COMMENT ON TABLE CT_TB_COMMENT IS '댓글테이블'
+/
+
+COMMENT ON COLUMN CT_TB_COMMENT.comment_no IS '댓글 번호'
+/
+
+COMMENT ON COLUMN CT_TB_COMMENT.board_no IS '게시판 분류번호'
+/
+
+COMMENT ON COLUMN CT_TB_COMMENT.article_no IS '게시글 번호'
+/
+
+COMMENT ON COLUMN CT_TB_COMMENT.is_reply IS '대댓글 여부'
+/
+
+COMMENT ON COLUMN CT_TB_COMMENT.origin_comment_no IS '원래 댓글 번호'
+/
+
+ALTER TABLE CT_TB_COMMENT
+    ADD CONSTRAINT FK_CT_TB_COMMENT_board_no_CT_T FOREIGN KEY (board_no, article_no)
+        REFERENCES CT_TB_BOARD (board_no, article_no)
+/
+
+ALTER TABLE CT_TB_COMMENT
+    ADD CONSTRAINT FK_CT_TB_COMMENT_is_reply_CT_T FOREIGN KEY (is_reply)
+        REFERENCES CT_TB_STATE_FOR_IS (STATE_FOR_IS)
+/
+
+

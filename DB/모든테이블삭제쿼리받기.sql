@@ -1,0 +1,5 @@
+SELECT 'DROP TABLE "' || TABLE_NAME || '" CASCADE CONSTRAINTS;' FROM user_tables;
+
+SELECT 'DROP TRIGGER "' || TABLE_NAME || '_AI_TRG";' FROM user_triggers;
+
+
