@@ -1,0 +1,122 @@
+a {
+	cursor: pointer;
+}
+
+nav{
+	padding:10px;
+	width:100%;
+	background-color: #161b22;
+	color:#f0f6fc;
+	min-width:320px;
+	position: fixed;
+}
+
+.noneOnMobile {
+	height:0;
+	display:none;
+}
+
+#navBarList{
+	min-width: 50px;
+}
+
+#navBarList ul {
+	float:left;
+	padding:0;
+}
+
+#navBarList ul > li {
+	list-style: none;
+	float: left;
+	padding-right : 25px;
+	padding-top : 20px;
+	color:black;
+	font-weight: bold;
+}
+
+#navBarList a {
+	text-decoration:none; 
+	color: #f0f6fc;
+}
+
+#navBarList a:hover{
+	color: #637586;
+}
+
+
+#mainLogo{
+	width: 100%;
+	text-align:center;
+	font-size:40px;
+}
+
+#navSearch{
+	float:left;
+	padding-right : 25px;
+	padding-top : 20px;
+}
+
+nav input {
+	background-color : #637586;
+	border: 0px;
+	border-radius:10px;
+	cursor:pointer;
+	padding-left:10px;
+	
+}
+
+nav input::placeholder{
+	color:#f0f6fc;
+}
+
+nav input:focus{
+	
+}
+
+#icons {
+	float: right;	
+	font-size: 20px;
+	padding-right : 25px;
+	padding-top : 15px;
+}
+
+#profileImgBox {
+	min-width:30px;
+	width:30px;
+	min-height:30px;
+	height: 30px;
+	float:right;
+	cursor:pointer;
+	overflow: hidden;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	margin-left:20px;
+}
+
+#profileImgBox > img {
+	width:50px;
+	height: 50px;
+}
+
+
+.divForClear{
+	clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
