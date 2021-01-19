@@ -23,21 +23,20 @@
 <link rel="stylesheet" media="screen and (min-width:769px)" href="/resources/css/layout/headerForBig.css">
 <link rel="stylesheet" media="screen and (max-width:768px)" href="/resources/css/layout/headerForMobile.css">
 
+<script type="text/javascript" src="/resources/js/layout/header.js"></script>
 </head>
 <body>
 
 <nav>
 	<div id="navBarList">
 		<div id="mainLogo">
-			<a class="noneOnPC pull-left"><i class="fas fa-bars"></i></a>
+			<a id="hambergerIcon" class="noneOnPC pull-left"><i class="fas fa-bars"></i></a>
 			<a href="/"><i class="fas fa-paw"></i></a>
 			<a class="noneOnPC pull-right"><i class="fas fa-bell"></i></a>
 		</div>
 		<div class="noneOnMobile">
-			<div id="navSearch">
-				<input type="text" placeholder="search my challenge...">
-			</div>
 			<ul>
+				<li><input type="text" placeholder="search my challenge..."></li>
 				<li><a href="#">Feed</a></li>
 				<li><a href="#"><span>My Challenge</span></a></li>
 				<li><a href="#"><span>My Chatting</span></a></li>
@@ -47,12 +46,12 @@
 		<div id="icons" class="noneOnMobile">
 			<a href="#"><i class="fas fa-bell"></i></a>
 			<div id="profileImgBox">
-				<img alt="" src="/resources/img/기본이미지.jpg">
+				<img alt="" src="/resources/img/기본이미지.jpg"/>
 			</div>
 		</div>
 	</div>
 	<div class="divForClear"></div>
 </nav>
 
-<div style="height:80px; width:100%;" class="noneOnPC"></div>
+<div id="heightOfNavBar" style="height:80px;" class="noneOnPC"></div>
 
