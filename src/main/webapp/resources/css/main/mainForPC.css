@@ -1,0 +1,14 @@
+aside {
+	width: 20%;
+	margin: 0;
+	float:left;
+}
+section {
+	width: 60%;
+	margin: 0;
+	float:left;
+}
+
+#serviceName {
+	font-size: 50px;
+}

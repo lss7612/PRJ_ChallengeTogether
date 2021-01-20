@@ -12,11 +12,6 @@ nav{
 	z-index: 1000;
 }
 
-.noneOnMobile {
-	height:0;
-	display:none;
-}
-
 #navBarList{
 	min-width: 50px;
 }
@@ -27,7 +22,7 @@ nav{
 
 #navBarList ul > li {
 	text-align: center;
-	font-size:1.1em;
+	font-size:1.5em;
 	list-style: none;
 	padding: 20px;
 	color:black;
@@ -56,7 +51,7 @@ nav input {
 	border-radius:10px;
 	cursor:pointer;
 	padding-left:10px;
-	width:100%;
+	width:80%;
 	line-height: 35px;
 	
 }
@@ -101,7 +96,10 @@ nav input:focus{
 	clear: both;
 }
 
-
+.noneOnMobile {
+	height:0;
+	display:none;
+}
 
 
 

@@ -1,0 +1,17 @@
+aside {
+	height:0;
+	display: none;
+}
+section {
+	width: 100%;
+	margin: 0;
+	float:left;
+}
+
+#serviceName {
+	font-size: 30px;
+}
+
+#serviceName > i {
+	font-size: 50px;
+}
