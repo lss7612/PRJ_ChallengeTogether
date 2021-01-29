@@ -1,3 +1,10 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 850px;
+}
+
 aside {
 	width: 20%;
 	margin: 0;
@@ -10,5 +17,6 @@ section {
 }
 
 #serviceName {
-	font-size: 50px;
+	font-size: 40px;
 }
+

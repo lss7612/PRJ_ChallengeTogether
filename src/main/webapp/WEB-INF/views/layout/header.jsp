@@ -34,7 +34,9 @@
 			<div id="mainLogo">
 				<a id="hambergerIcon" class="noPageMoveIcon noneOnPC pull-left"><i class="fas fa-bars"></i></a>
 				<a href="/"><i class="fas fa-paw"></i></a>
+				<c:if test="${sessionScope.isLogin }">
 				<a class="noPageMoveIcon noneOnPC pull-right"><i class="fas fa-bell"></i></a>
+				</c:if>
 			</div>
 			<div class="noneOnMobile">
 				<ul>
@@ -46,10 +48,12 @@
 			</div>
 			
 			<div id="icons" class="noneOnMobile">
-				<a href="#"><i class="fas fa-bell"></i></a>
-				<div id="profileImgBox">
-					<img alt="" src="/resources/img/기본이미지.jpg"/>
-				</div>
+				<c:if test="${sessionScope.isLogin }">
+					<a href="#"><i class="fas fa-bell"></i></a>
+					<div id="profileImgBox">
+						<img alt="" src="/resources/img/기본이미지.jpg"/>
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="divForClear"></div>

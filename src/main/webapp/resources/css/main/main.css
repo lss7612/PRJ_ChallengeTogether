@@ -1,7 +1,11 @@
-
+.wrapper {
+	padding-top: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 #mainBox {
-	text-align: center;
 	max-width: 500px;
 	min-width: 320px;
 	margin: 0 auto;
@@ -11,12 +15,39 @@
 #mainBox > div{
 	background-color:#ffffff;
 	z-index: 1;
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#mainBox > div:nth-child(1) div{
+	margin-top: 20px;
 }
 
 #serviceName {
+	text-align: center;
 	padding-top:20px;
 }
 
 #join {
 	margin-top:10px;
+	text-align: center;
 }
+
+
+#loginForm > form {
+	width: 70%;
+	margin: 0 auto;
+}
+
+#loginButton {
+	margin: 20px auto;
+	width:70%;
+	height: 34px;
+	padding-top:5px;
+	text-align:center;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
