@@ -23,7 +23,7 @@ dd
 				<i class="fas fa-paw"></i><br>
 				<span>Challenge Together</span>
 			</div>
-			<div id = "loginForm">
+			<div class = "form" id = "loginForm">
 			<form action="/login" method="POST">
 				<div class="form-group">
 					<label for="userId">아이디</label>
@@ -39,7 +39,7 @@ dd
 		</div>
 		<div>
 			<div id = "join">
-				계정이 없으신가요? <a href="/join"><span class="clickable font_color_proc">가입하기</span></a>
+				계정이 없으신가요? <a href="/member/join"><span class="clickable font_color_proc">가입하기</span></a>
 			</div>
 		</div>
 	</div>

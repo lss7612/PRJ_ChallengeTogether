@@ -11,13 +11,15 @@ public class LoginController {
 
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public void login(
 			String userId
 			,String userPw
 			) {
-		logger.info("userId"+userId+"\nuserPw"+userPw);
-		System.out.println("userId"+userId+"\nuserPw"+userPw);
+		logger.info("userId : "+userId+"\n,userPw : "+userPw);
 	}
+
+	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
+	public void join() {}
 	
 }

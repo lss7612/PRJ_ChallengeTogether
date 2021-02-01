@@ -31,3 +31,8 @@ body{
 	color: #087f23;
 	font-weight: bold;
 }
+
+.inner_btn{
+	border:0;
+	position: absolute;
+}
