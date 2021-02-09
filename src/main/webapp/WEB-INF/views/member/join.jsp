@@ -25,21 +25,22 @@
 						<label for="userId">아이디</label>
 				    	<input type="text" class="form-control validateJoin" id="userId" name="userId" placeholder="아이디를 입력하세요">
 				    </div>
-				    <div id="validateId" class="validateResult"></div>
+				    <div id="validateId" class="validateResult" arr="0"></div>
 				    <div class="form-group">
 						<label for="userNick">닉네임</label>
 				    	<input type="text" class="form-control validateJoin" id="userNick" name="userNick" placeholder="닉네임을 입력하세요">
 				    </div>
-				    <div id="validateNick" class="validateResult"></div>
+				    <div id="validateNick" class="validateResult" arr="0"></div>
 				    <div class="form-group">
 						<label for="userPw">비밀번호</label>
 				    	<input type="password" class="form-control" id="userPw" name="userPw" placeholder="비밀번호를 입력하세요">
 				    </div>
+				    <div id="validatePw" class="validateResult" arr="0"></div>
 				    <div class="form-group">
 						<label for="userPw">비밀번호 확인</label>
 				    	<input type="password" class="form-control" id="" name="" placeholder="비밀번호 확인">
 				    </div>
-				    <div id="validatePw"></div>
+				    <div id="confirmPw" class="validateResult" arr="0"></div>
 			    </form>
 			    <div class="color_proc clickable" id="loginButton" onclick="submit();">가입하기</div>
 				</div>
